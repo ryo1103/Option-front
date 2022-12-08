@@ -4,9 +4,11 @@
   import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
   // @ts-ignore
   import BigNumber from "bignumber.js";
-  import { liquidityPool, marketManager, traderList, options} from '../config';
+  import { liquidityPool, marketManager, traderList, options, oracle} from '../config';
   import liquidityPoolAbi from '../connectors/abis/LiquidityPool.json'
+
   import traderAbi from '../connectors/abis/Trader.json'
+  import oracleAbi from '../connectors/abis/Oracle.json'
   // import { ethers} from 'ethers';
   
   export const million = 1000000;
@@ -163,6 +165,13 @@
     //@ts-ignore
     return getContract(traderList[optionName], traderAbi, library, account);
   };
+
+  export const getOracleContract = (library: Web3Provider, account?: string ): Contract => {
+    //@ts-ignore
+    return getContract(oracle, oracleAbi, library, account);
+  };
+
+
   
 
   
