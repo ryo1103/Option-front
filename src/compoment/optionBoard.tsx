@@ -6,6 +6,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import CardItem from "./cardItem";
+import { Stack } from "@mui/system";
 
 function OptionBorad({optionList}:any){
     const [asset, setAsset] = useState('all')
@@ -101,11 +102,11 @@ function OptionBorad({optionList}:any){
             <MenuItem value={'all'}>ALL</MenuItem>
         </Select>
         </FormControl>
-        <div style={{display:'flex', flexDirection:'row' , justifyContent:'space-between', marginTop:'20px'}}>
+        <Stack direction='row'  justifyContent='space-between' marginTop='20px' sx={{flexFlow:'wrap'}}>
             {
-                Object.keys(finalOption).map((item:any) => <CardItem  key={item} name={item} isExpire={finalOption[item][1] === 'expire'} isSoldOut={finalOption[item][1] === 'expire'}/>)
+                Object.keys(finalOption).map((item:any) => <CardItem  key={item} name={item} isExpire={finalOption[item].expire} isSoldOut={finalOption[item]?.expire === 'expire'}  base={finalOption[item]?.underlyingAsset} strike={finalOption[item]?.strike} address= {finalOption[item]?.address} />)
             }
-        </div>
+        </Stack>
         </>
     )
 

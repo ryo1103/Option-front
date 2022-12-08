@@ -9,7 +9,7 @@ secondary: {
 main: '#3a6df0',
 },
 text: {
-    primary: 'rgb(113 119 144 / 78%)',
+    primary: '#f9fafb',
     secondary: '#f9fafb',
     disabled: '#3a6df0'
 },
@@ -18,4 +18,5 @@ info:{
 }
 },
 });
+// 'rgb(113 119 144 / 78%)'
 

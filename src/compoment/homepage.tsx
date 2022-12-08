@@ -16,6 +16,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import OptionBoard from "./optionBoard";
+import { Link } from 'react-router-dom'
 
 
 
@@ -36,7 +37,7 @@ const StartButton = styled(Button)({
     marginTop: '20px',
     color:'#fff',
     
-    
+
     '&:hover': {
       backgroundColor: '#3a6df0',
       borderColor: '#0062cc',
@@ -130,14 +131,14 @@ function Homepage(){
         <div className='banner'>
             <div className="banner-slogan">
             <Typography variant="h3" color='primary' align='left' display='block'>
-                XXXX
+                Deoption
             </Typography>
-            
-            <Typography variant="h6" color='primary' align='left' display='block'>
-                The simplest option. Choose a direction to place your bet and wait for a gain.
-                指向目前收益率最高的option
+            <Typography variant="h6" color='primary' align='left' display='block' marginTop='30px'>
+                The simplest option. More efficiency , More freedom and more for you.
             </Typography>
-            <StartButton variant="contained" size="medium">Start to Trade!</StartButton>
+            <Link to={`/option/btcCall`} style={{textDecoration:'none'}}>
+                <StartButton variant="contained" size="medium">Start to Trade!</StartButton>
+            </Link>
             </div>
             <img src={banner} width='360' style={{marginLeft: '-20px'}}/>
             
@@ -152,7 +153,6 @@ function Homepage(){
         </Box>
         <TabPanel value={tabNumber} index={0}>
             <OptionBoard optionList={optionList}/>
-           
         </TabPanel>
         <TabPanel value={tabNumber} index={1}>
             <OptionBoard optionList={usersOption}/>

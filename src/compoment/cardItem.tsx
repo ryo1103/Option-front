@@ -8,15 +8,18 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import soldout1 from '../assets/images/soldout.png'
 import { Link } from 'react-router-dom'
+import EthIcon from '../assets/images/eth.svg';
+import BtcIcon from '../assets/images/btc.svg';
 
 const StyledCard = styled(Card)({
   backgroundColor: 'rgb(146 151 179 / 13%)',
   borderRadius: '14px',
-  width:'300px'
+  width:'240px',
+  marginTop: '10px'
 
 });
 
-function CardItem({option, isExpire, isSoldOut, name}:any){
+function CardItem({option, isExpire, isSoldOut, name, base, strike }:any){
 
     return (
     <Link to={`/option/${name}`} style={{textDecoration:'none'}}>
@@ -34,7 +37,7 @@ function CardItem({option, isExpire, isSoldOut, name}:any){
               <CardMedia
                 component="img"
                 height="140"
-                image=''
+                image={(base ==='eth' ? EthIcon: BtcIcon)}
                 alt="green iguana"
                 style={{backgroundColor: 'rgb(146 151 179 / 13%)'}}
               />
@@ -45,7 +48,7 @@ function CardItem({option, isExpire, isSoldOut, name}:any){
             {name}
           </Typography>
           <Typography variant="body2" color="primary">
-            token token token token token
+         { `Trading ${name} option token for ${strike} strike price in ${base} .`}
           </Typography>
         </CardContent>
       </CardActionArea>

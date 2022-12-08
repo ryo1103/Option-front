@@ -48,7 +48,7 @@ function Header(){
     return (
         <div className='header'>
             <Stack spacing={2} direction="row">
-                <div className='logo' style={{fontSize:'24px', marginRight:'80px'}}>📈 💰</div>
+                <div className='logo' style={{fontSize:'24px', marginRight:'80px'}}>Deoption</div>
                 <Link to={`/`} style={{textDecoration:'none'}}><Button variant="text" >Trade</Button></Link>
                 <Link to={`/vault`} style={{textDecoration:'none'}}><Button variant="text" >Stake</Button></Link>
             </Stack>

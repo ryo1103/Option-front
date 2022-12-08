@@ -2,6 +2,7 @@
 import { useParams } from 'react-router-dom'
 import React, { useState, useCallback, useEffect} from 'react';
 import EthBackIcon from '../assets/images/ethBackIcon';
+import BtcBackIcon from '../assets/images/btcBackIcon';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -17,6 +18,8 @@ import { useTokenContract,useOptionContract} from '../hooks/useContract';
 import { usdt } from '../config';
 import { formatEther, parseEther } from "@ethersproject/units";
 import {options} from '../config';
+import ChartComponent from './chart1'
+import optionList from "../config/option";
 
 
 /**
@@ -38,18 +41,27 @@ import {options} from '../config';
 
 
 const chartBoxStyle = {
-    background: 'rgba(16 18 27 / 40%)',
+    background: 'rgba(36, 39, 59, 0.3)',
     width: '70%',
-    
-    
+    borderRadius: '10px 0 0 10px',
+    padding: '10px 0 10px 0'
+}
+
+const TradeBoxStyle = {
+    width: '30%',
+    background: 'rgba(16 18 27 / 40%)',
+    borderRadius: '0 10px 10px 0',
+    padding: '5px 0 10px 0'
 
 }
 
 
 function Trade(){
     const params = useParams();
-   // const optionName = params['address']
-    const optionName = 'btcCall'
+    const optionName = params['address']
+    // @ts-ignore
+    const baseToekn = optionList[optionName]?.base
+
     // 通过params 查询已经出售多少token了，再查一下保证金剩余的钱
     const [soldToken, setSoldToken]  = useState<number>(0)
     const [leftMargin, setLeftMargin] =  useState<number>(1000) //或者是我存的初始值
@@ -66,7 +78,9 @@ function Trade(){
     // @ts-ignore
     const oracle = getOracleContract(library, account)
     const tokenContract = useTokenContract(usdt)
+    // @ts-ignore
     const optionContract = useOptionContract(options[optionName])
+
     // @ts-ignore
     const liquidityPool = getLiquidityPoolContract(library, account)
 
@@ -127,7 +141,7 @@ function Trade(){
             console.log('售出', getSoldnRes)
             // @ts-ignore
             setSoldToken(Number(getSoldnRes))
-            setSoldRatio(Number(getSoldnRes)/leftMargin)
+            setSoldRatio(100 * Number(getSoldnRes)/leftMargin)
             //  setBalance(getBalanceRes)
         }
         }, [getPositionRes])
@@ -212,37 +226,42 @@ function Trade(){
                             </Typography>
                         </Stack>
                     </Box>                    
-                    <div><EthBackIcon width='300px'/></div>                    
+                    <div>
+                        {
+                            baseToekn === 'eth' ?<EthBackIcon width='300px'/> :<BtcBackIcon width='300px'/> 
+                        }
+                        </div>                    
                 </Stack>
             <div className='kYcMqO'></div>
             <Stack direction="row" justifyContent="space-between" width='60%' maxWidth='800px' margin='0 auto' >
                 
 
-                    <Box className='chart-side' sx={chartBoxStyle}>
+                    <Box className='chart-side' sx={chartBoxStyle} >
                         <Stack direction="column" >
-                                <Stack direction="row" justifyContent="space-between">
-                                    <div>
-                                    <EthBackIcon width='30px'/>
-                                        <Typography variant="caption"  gutterBottom color='primary'>
+                                <Stack direction="row" justifyContent="space-between" padding='5px 20px 0 20px'>
+                                    <Stack direction="row"  alignItems='center'>
+                                    {baseToekn === 'eth'? <EthBackIcon width='30px'/> : <BtcBackIcon width='30px'/> }
+                                        <Typography variant="caption"  gutterBottom color='primary' fontSize='16px' marginLeft='10px'>
                                             {optionName}
                                         </Typography>
-                                    </div>
+                                    </Stack>
                                     <Box>
                                         <Typography variant="caption" display="block" gutterBottom color='primary'>
-                                             current price :
+                                             Current Price 
                                         </Typography>
-                                        <Typography variant="overline" display="block" gutterBottom color='primary'>
-                                             {underlyingPrice ?underlyingPrice : '----'}
+                                        <Typography variant="overline" display="block" gutterBottom color='primary' textAlign='end' fontSize='14px' marginTop='-8px'>
+                                             ${underlyingPrice ?underlyingPrice : '----'}
                                         </Typography>
                                     </Box>
                                 </Stack>
 
-                                <Stack direction="row" justifyContent="space-between" >
+                                <Stack direction="row" justifyContent="space-between" padding='0 20px'>
+                                    <Stack direction="row" justifyContent="space-between" width='40%'>
                                     <Box>
                                         <Typography variant="caption" display="block" gutterBottom color='primary'>
                                             Expire Time
                                         </Typography>
-                                        <Typography variant="overline" display="block" gutterBottom color='primary'>
+                                        <Typography variant="overline" display="block" gutterBottom color='primary' fontSize='14px' marginTop='-8px'>
                                             {expireTime}
                                         </Typography>
                                     </Box>
@@ -250,26 +269,29 @@ function Trade(){
                                         <Typography variant="caption" display="block" gutterBottom color='primary'>
                                             Strike Price
                                         </Typography>
-                                        <Typography variant="overline" display="block" gutterBottom color='primary'>
+                                        <Typography variant="overline" display="block" gutterBottom color='primary' fontSize='14px' marginTop='-8px'>
                                             {strikePrice}
                                         </Typography>
                                     </Box>
+                                    </Stack>
+                                    
                                     <Box>
                                         <Typography variant="caption" display="block" gutterBottom color='primary'>
-                                            P&L (购买预计最大盈亏)
+                                            P&L 
                                         </Typography>
-                                        <Typography variant="overline" display="block" gutterBottom color='primary'>
+                                        <Typography variant="overline" display="block" gutterBottom color='primary' fontSize='14px' marginTop='-8px'>
                                            24%
                                         </Typography>
                                     </Box>
 
                                 </Stack>
-                            <MyChart></MyChart>
+                            { /* <MyChart></MyChart> */ }
+                            <ChartComponent></ChartComponent>
                         </Stack>
                     </Box>
                 
 
-                <Box className="trade-side" sx={{ marginLeft: '30px' }}>
+                <Box className="trade-side"  sx={TradeBoxStyle}>
                     <TradingBox price={optionPrice} limit={limit} optionName={'btcCall'} time={time} position={position}></TradingBox>
                 </Box>
             </Stack>

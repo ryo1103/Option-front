@@ -130,25 +130,25 @@ export default function TradingBox({position, price, limit, isPut, optionName, t
   
 
   return (
-    <Box sx={{ width: '100%', marginTop: '30px', marginLeft: '25%' }}>
+    <Box sx={{ width: '100%'}}>
 
-      <Box>
+      <Box sx={{ width: '100%'}}>
         <Tabs value={value} onChange={handleChange} centered>
-          <Tab label="BUY" {...a11yProps('buy')} />
-          <Tab label="SELL" {...a11yProps('sell')} />
+          <Tab label="BUY" {...a11yProps('buy')} sx={{width:'50%'}}/>
+          <Tab label="SELL" {...a11yProps('sell')}  sx={{width:'50%'}}/>
         </Tabs>
       </Box>
+      <Stack direction='column' padding='14px'>
       <Typography variant="overline" gutterBottom color="primary">
           Option Price: {price === undefined ? '--': price}
       </Typography>
-      <TabPanel value={value} index={0}>
-        <Stack justifyContent="space-around" >
-
+      <TabPanel value={value} index={0} >
+        <Stack justifyContent="space-around"  margin=' -18px -14px'>
           <Typography variant="overline" gutterBottom color="primary">
                 Amount
           </Typography>
           <TextField fullWidth onChange={value === 0 ? handleBuyInput : handleSellInput} inputProps={{ inputMode: 'numeric', pattern: '[0-9]*',endAdornment:<InputAdornment position="end">{isPut? 'Puts': 'Calls'}</InputAdornment>}}  />
-          <Typography variant="overline" gutterBottom color="primary">
+          <Typography variant="caption" gutterBottom color="primary" marginBottom='5px'>
                 Limit:{limit}
           </Typography>
           <Stack direction='row' alignItems='center' justifyContent='space-between'>
@@ -159,25 +159,22 @@ export default function TradingBox({position, price, limit, isPut, optionName, t
                 ${totalCost}
             </Typography>
           </Stack>
-          
-
           <Button variant="outlined" onClick = {value === 0 ? handleBuyClick :handleSellClick} sx={{marginTop :'20px'}}>Confirm</Button>
         </Stack>
       </TabPanel>
       <TabPanel value={value} index={1}>
-      <Stack justifyContent="space-around" >
-
+      <Stack justifyContent="space-around" margin=' -18px -14px'>
         <Typography variant="overline" gutterBottom color="primary">
               Amount
         </Typography>
         <TextField fullWidth onClick = {value === 0 ? handleBuyClick :handleSellClick} onChange={value === 0 ? handleBuyInput : handleSellInput} inputProps={{ inputMode: 'numeric', pattern: '[0-9]*',endAdornment:<InputAdornment position="end">{isPut? 'Puts': 'Calls'}</InputAdornment>}}  />
-        <Typography variant="overline" gutterBottom color="primary">
+        <Typography variant="caption" gutterBottom color="primary" marginBottom='5px'>
               Limit:{limit}
         </Typography>
 
         <Stack direction='row' alignItems='center' justifyContent='space-between'>
             <Typography variant="overline" gutterBottom color="primary">
-                Total Cost:
+               Will Receive:
             </Typography>
             <Typography variant="caption" gutterBottom color="primary">
                 ${totalCost}
@@ -203,7 +200,7 @@ export default function TradingBox({position, price, limit, isPut, optionName, t
                 $10
             </Typography>
           </Stack>
-
+         </Stack>
     </Box>
   )
 }
