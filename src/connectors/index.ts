@@ -4,12 +4,13 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 
 const RPC_URLS = {
 	1: 'https://mainnet.infura.io/v3/55d040fb60064deaa7acc8e320d99bd4',
-	4: 'https://rinkeby.infura.io/v3/55d040fb60064deaa7acc8e320d99bd4'
+	4: 'https://rinkeby.infura.io/v3/55d040fb60064deaa7acc8e320d99bd4',
+    31337: 'http://127.0.0.1:8545/',
 };
 
 //metamask
 export const injected = new InjectedConnector({
-	supportedChainIds: [ 1, 3, 4, 5, 42 ]
+	supportedChainIds: [ 1, 3, 4, 5, 42, 31337]
 });
 
 export const walletconnect = new WalletConnectConnector({

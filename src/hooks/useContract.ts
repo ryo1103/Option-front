@@ -1,12 +1,11 @@
 
 import { Contract } from '@ethersproject/contracts';
 import { useMemo } from 'react';
-/** 
+
 import { getContract } from '../utils';
 import { useActiveWeb3React } from './index';
-import ERC_20_BASIC_ABI from '../connectors/abis/erc20Basic.json';
-import ERC_721_BASIC_ABI from '../connectors/abis/erc721.json';
-import ERC_1155_BASIC_ABI from '../connectors/abis/erc1155.json';
+import USDT_ABI from '../connectors/abis/Usdt.json';
+import Otoken_ABI from '../connectors/abis/Otoken.json';
 import { stringify } from 'querystring';
 
 // returns null on errors
@@ -24,15 +23,15 @@ export function useContract(address: string | undefined, ABI: any, withSignerIfP
   }, [address, ABI, library, withSignerIfPossible, account])
 }
 
-export function useBasicERC20Contract(tokenAddress?: string, withSignerIfPossible?: boolean): Contract | null {
-  return useContract(tokenAddress, ERC_20_BASIC_ABI, withSignerIfPossible)
+export function useOptionContract(tokenAddress?: string, withSignerIfPossible?: boolean): Contract | null {
+  return useContract(tokenAddress, Otoken_ABI, withSignerIfPossible)
 }
 
 export function useTokenContract(tokenAddress?: string, withSignerIfPossible?: boolean): Contract | null {
-  return useContract(tokenAddress, ERC_20_BASIC_ABI, withSignerIfPossible)
+  return useContract(tokenAddress, USDT_ABI, withSignerIfPossible)
 }
 
-export function use721TokenContract(tokenAddress?: string, withSignerIfPossible?: boolean): Contract | null {
+/*export function use721TokenContract(tokenAddress?: string, withSignerIfPossible?: boolean): Contract | null {
   return useContract(tokenAddress, ERC_721_BASIC_ABI, withSignerIfPossible)
 }
 
@@ -51,5 +50,5 @@ export async function erc1155safeTransfer(tokenAddress: string , library?:any, a
   return contract.safeTransferFrom(account, recipient, id, 1,[]);
 }
 
-
 */
+

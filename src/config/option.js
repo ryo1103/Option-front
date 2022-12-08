@@ -5,6 +5,6 @@ const optionList = {
     'otoken2' : ['btc','expire'],
     'otoken3' : ['btc','running']
 
-}
+} 
 
 export default optionList
