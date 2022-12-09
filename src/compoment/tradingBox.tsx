@@ -55,7 +55,8 @@ export default function TradingBox({position, price, limit, isPut, optionName, t
   const tokenContract = useTokenContract(usdt)
   //@ts-ignore
   const traderContract = getOptionTraderContract(library,account,optionName)
-  console.log('traderAddress', traderList['btcCall'])
+    // @ts-ignore
+  console.log('traderAddress',traderList[optionName], optionName,traderList['btcCall'])
   
   const { runAsync: getAllowance, data: allowanceData, error: allowanceError, loading: allowanceLoading }
     = useRequest(() => tokenContract?.allowance(account, traderAddress), { manual: true })

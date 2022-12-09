@@ -60,7 +60,7 @@ function Trade(){
     const params = useParams();
     const optionName = params['address']
     // @ts-ignore
-    const baseToekn = optionList[optionName]?.base
+    const baseToekn = optionList[optionName]?.underlyingAsset
 
     // 通过params 查询已经出售多少token了，再查一下保证金剩余的钱
     const [soldToken, setSoldToken]  = useState<number>(0)
@@ -85,7 +85,7 @@ function Trade(){
     const liquidityPool = getLiquidityPoolContract(library, account)
 
 
-    const { run: getPrice, data: getPriceRes, error: getPriceError } = useRequest(() => oracle.getLastPrice('btcCall'), {
+    const { run: getPrice, data: getPriceRes, error: getPriceError } = useRequest(() => oracle.getLastPrice(optionName), {
         manual: true,
         pollingInterval: 10000,
         pollingWhenHidden: false
@@ -286,13 +286,13 @@ function Trade(){
 
                                 </Stack>
                             { /* <MyChart></MyChart> */ }
-                            <ChartComponent></ChartComponent>
+                            <ChartComponent base={baseToekn}></ChartComponent>
                         </Stack>
                     </Box>
                 
 
                 <Box className="trade-side"  sx={TradeBoxStyle}>
-                    <TradingBox price={optionPrice} limit={limit} optionName={'btcCall'} time={time} position={position}></TradingBox>
+                    <TradingBox price={optionPrice} limit={limit} optionName={optionName} time={time} position={position}></TradingBox>
                 </Box>
             </Stack>
         </div>
