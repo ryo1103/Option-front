@@ -19,7 +19,7 @@ const StyledCard = styled(Card)({
 
 });
 
-function CardItem({option, isExpire, isSoldOut, name, base, strike }:any){
+function CardItem({option, isExpire, isSoldOut, name, base, strike, showName }:any){
 
     return (
     <Link to={`/option/${name}`} style={{textDecoration:'none'}}>
@@ -45,10 +45,10 @@ function CardItem({option, isExpire, isSoldOut, name, base, strike }:any){
 
         <CardContent style={{backgroundColor: 'rgb(146 151 179 / 13%)'}}>
           <Typography gutterBottom variant="h5" component="div" color="primary">
-            {name}
+            {showName}
           </Typography>
           <Typography variant="body2" color="primary">
-         { `Trading ${name} option token for ${strike} strike price in ${base} .`}
+         { `Trading ${showName} option token for ${strike} strike price in ${base} .`}
           </Typography>
         </CardContent>
       </CardActionArea>

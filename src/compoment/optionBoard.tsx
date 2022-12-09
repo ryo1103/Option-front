@@ -104,7 +104,7 @@ function OptionBorad({optionList}:any){
         </FormControl>
         <Stack direction='row'  justifyContent='space-between' marginTop='20px' sx={{flexFlow:'wrap'}}>
             {
-                Object.keys(finalOption).map((item:any) => <CardItem  key={item} name={item} isExpire={finalOption[item].expire} isSoldOut={finalOption[item]?.expire === 'expire'}  base={finalOption[item]?.underlyingAsset} strike={finalOption[item]?.strike} address= {finalOption[item]?.address} />)
+                Object.keys(finalOption).map((item:any) => <CardItem showName={finalOption[item].showName} key={item} name={item} isExpire={finalOption[item].expire} isSoldOut={finalOption[item]?.expire === 'expire'}  base={finalOption[item]?.underlyingAsset} strike={finalOption[item]?.strike} address= {finalOption[item]?.address} />)
             }
         </Stack>
         </>

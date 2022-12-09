@@ -61,6 +61,8 @@ function Trade(){
     const optionName = params['address']
     // @ts-ignore
     const baseToekn = optionList[optionName]?.underlyingAsset
+    // @ts-ignore
+    const showName = optionList[optionName]?.showName
 
     // 通过params 查询已经出售多少token了，再查一下保证金剩余的钱
     const [soldToken, setSoldToken]  = useState<number>(0)
@@ -206,7 +208,7 @@ function Trade(){
                 <Stack direction="row" justifyContent="space-between" width='60%' maxWidth='800px' margin='0 auto' height='200px' overflow='hidden'>
                     <Box width='60%' maxWidth='400px' marginTop='50px'>
                         <Typography variant="h3" gutterBottom color='primary'>
-                            {optionName}
+                            {showName}
                         </Typography>
                         <Stack direction="row" justifyContent="space-between" marginTop='15px'>
                             <Typography variant="caption" gutterBottom color='#bebfc8'>
@@ -242,7 +244,7 @@ function Trade(){
                                     <Stack direction="row"  alignItems='center'>
                                     {baseToekn === 'eth'? <EthBackIcon width='30px'/> : <BtcBackIcon width='30px'/> }
                                         <Typography variant="caption"  gutterBottom color='primary' fontSize='16px' marginLeft='10px'>
-                                            {optionName}
+                                            {showName}
                                         </Typography>
                                     </Stack>
                                     <Box>
