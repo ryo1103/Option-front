@@ -67,7 +67,7 @@ export default function TradingBox({position, price, limit, isPut, optionName, t
 
     // 价格要进行特别处理 小数位3位
   const { runAsync: buy, data: buyData, error: buyError, loading: buyLoading }
-    = useRequest(() => traderContract?.buyToken(Number(buyAmount),parseEther(price), Number(time)), { manual: true })
+    = useRequest(() => traderContract?.buyToken(Number(buyAmount),parseEther(price).div(10**3), Number(time)), { manual: true })
 
   const { runAsync: sell, data: sellData, error: sellError, loading: sellLoading }
     = useRequest(() => traderContract?.sellToken(Number(sellAmount),parseEther(price)), { manual: true })
@@ -81,10 +81,9 @@ export default function TradingBox({position, price, limit, isPut, optionName, t
     //  const allowBalanceStr = res?.toString()
       if (!compare(parseEther(totalCost.toString()).toString(), allowBalanceStr, "gt")) {
           console.log(parseEther(totalCost.toString()).toString(), allowBalanceStr)
-          console.log(parseEther(price), buyAmount, time)
+          console.log(formatEther(parseEther(price)), buyAmount, time)
           console.log('compare(value, allowBalanceStr, "gt")', compare(parseEther(totalCost.toString()).toString(), allowBalanceStr, "gt"))
           let buyRes = await buy()
-          
           console.log(buyRes, '购买结果')
       }else{
           await tokenapprove()

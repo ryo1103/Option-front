@@ -86,8 +86,8 @@ function Trade(){
     // @ts-ignore
     const liquidityPool = getLiquidityPoolContract(library, account)
 
-
-    const { run: getPrice, data: getPriceRes, error: getPriceError } = useRequest(() => oracle.getLastPrice(optionName), {
+    console.log('orcle',)
+    const { run: getPrice, data: getPriceRes, error: getPriceError } = useRequest(() => oracle?.getLastPrice(optionName), {
         manual: true,
         pollingInterval: 10000,
         pollingWhenHidden: false
@@ -173,13 +173,13 @@ function Trade(){
             // @ts-ignore
             console.log('价格数据', getPriceRes, formatEther(getPriceRes?.optionPrice))
             // @ts-ignore
-            setOptionPrice(formatEther(getPriceRes?.optionPrice))
+            setOptionPrice(formatEther(getPriceRes?.optionPrice.mul(10 ** 15) ))
             // @ts-ignore
             setUnderlyingPrice(getPriceRes?.underlyingPrice.toString())
             // @ts-ignore
             setLimit(getPriceRes?.amount.toString())
             // @ts-ignore
-            setTime(formatEther(getPriceRes?.timestamp))
+            setTime(Number(getPriceRes?.timestamp))
             //  setBalance(getBalanceRes)
         }
         }, [getPriceRes])
